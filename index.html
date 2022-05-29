@@ -10,75 +10,80 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <header class="text-white text-center">
         <h1>
             Weather Dashboard
         </h1>
     </header>
 
-    <!-- Search Section -->
-    <section>
-        <div id="search-container">
-            <h2>
-                Search for a City:
-            </h2>
-            <form>
-                <input>
-            </form>
-            <button class="btn" id="submit-btn">Submit</button>
-        </div>
-        <div id="history-container">
-        </div>
-    </section>
+    <main class="d-flex">
+        <!-- Search Section -->
+        <section id="input-container" class="col-4">
+            <div id="search-container">
+                <h2 class="m-1">
+                    Search for a City:
+                </h2>
+                <form>
+                    <input type="text" class="w-100 m-1">
+                    <br>
+                    <input type="submit" value="Submit" class="bg-primary text-white border-0 m-1 w-100">
+                </form>
+            </div>
 
-    <!-- City Info Section -->
-    <section id="city-info-container">
-        <h2>Placeholder City</h2>
-        <p>Temp:</p>
-        <p>Wind:</p>
-        <p>Humidity:</p>
-        <p>UV Index:</p>
-    </section>
+            <div id="history-container">
+            </div>
+        </section>
 
-    <!-- 5 Day Forecast -->
-    <section id="5-day-forecast">
-        <div id="day1">
-            <h3>date</h3>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
-        </div>
-        <div id="day2">
-            <h3>date</h3>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
-        </div>
-        <div id="day3">
-            <h3>date</h3>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
-        </div>
-        <div id="day4">
-            <h3>date</h3>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
-        </div>
-        <div id="day5">
-            <h3>date</h3>
-            <p>icon</p>
-            <p>Temp:</p>
-            <p>Wind:</p>
-            <p>Humidity:</p>
-        </div>
-    </section>
+        <content class="col-8">
+            <!-- City Info Section -->
+            <section id="city-info-container">
+                <h2>Placeholder City</h2>
+                <p>Temp:</p>
+                <p>Wind:</p>
+                <p>Humidity:</p>
+                <p>UV Index:</p>
+            </section>
 
+            <!-- 5 Day Forecast -->
+            <section id="forecast" class="d-flex justify-content-around">
+                <div id="day1">
+                    <h3>date</h3>
+                    <p>icon</p>
+                    <p>Temp:</p>
+                    <p>Wind:</p>
+                    <p>Humidity:</p>
+                </div>
+                <div id="day2">
+                    <h3>date</h3>
+                    <p>icon</p>
+                    <p>Temp:</p>
+                    <p>Wind:</p>
+                    <p>Humidity:</p>
+                </div>
+                <div id="day3">
+                    <h3>date</h3>
+                    <p>icon</p>
+                    <p>Temp:</p>
+                    <p>Wind:</p>
+                    <p>Humidity:</p>
+                </div>
+                <div id="day4">
+                    <h3>date</h3>
+                    <p>icon</p>
+                    <p>Temp:</p>
+                    <p>Wind:</p>
+                    <p>Humidity:</p>
+                </div>
+                <div id="day5">
+                    <h3>date</h3>
+                    <p>icon</p>
+                    <p>Temp:</p>
+                    <p>Wind:</p>
+                    <p>Humidity:</p>
+                </div>
+            </section>
+        </content>
+    </main>
     <!-- JS/Bootstrap Links -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
