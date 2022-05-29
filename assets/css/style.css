@@ -1,20 +1,29 @@
 header {
-    background-color: #EA0028;
+    background-color: #59b6f5;
     background-image: linear-gradient(180deg, #59b6f5, #493aee);
     transition: all .5s ease-out;
     background-size: 1px 100px;
     background-position: 0 -10px;
 }
 
-/* .input-container {
-    position: relative
-} */
+#history-container {
+    border-top: solid gray 2px;
+    margin-top: 10px;
+}
 
 #city-info-container {
     border: solid black 1px;
     padding: 10px;
     margin: 10px;
-    /* position: absolute;
-    right:50px;
-    top:50px */
+}
+
+#forecast-container {
+    padding: 10px;
+    margin: 10px;
+}
+
+.forecast {
+    background-color: rgb(78, 78, 114);
+    color:white;
+    padding: 5px;
 }
