@@ -1,10 +1,14 @@
-var cityInputEl = document.getElementById("cityInput");
+var cityInputEl = document.querySelector("#cityInput");
+console.log(cityInputEl);
+var formBtnEl = document.getElementById("formBtn");
 
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
+    console.log(cityInputEl.value);
     // get value from input element and trim any leading/trailing spaces
     var cityName = cityInputEl.value.trim();
+    console.log(cityName);
 
     // check if there is a value in the username variable before requesting data
     if (cityName) {
@@ -19,7 +23,7 @@ var formSubmitHandler = function(event) {
 };
 
 var retrieveWeather = function(city) {
-    var apiUrl="";
+    var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+cityName +"&limit=1&appid=aced3c832ed11bbdeba8eca54b432a36";
 
     // make a request to the url
     fetch(apiUrl)
@@ -42,4 +46,6 @@ var retrieveWeather = function(city) {
 
 var displayWeather = function(weather, searchTerm) {
 }
+
+formBtnEl.addEventListener("submit", formSubmitHandler);
 
