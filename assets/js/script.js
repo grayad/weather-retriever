@@ -22,30 +22,30 @@ var formSubmitHandler = function(event) {
     }
 };
 
-var retrieveWeather = function(city) {
-    var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+cityName +"&limit=1&appid=aced3c832ed11bbdeba8eca54b432a36";
+// var retrieveWeather = function(city) {
+//     var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+cityName +"&limit=1&appid=aced3c832ed11bbdeba8eca54b432a36";
 
-    // make a request to the url
-    fetch(apiUrl)
-    .then(function(response) {
-        // request was successful
-        if (response.ok) {
-            response.json().then(function(data) {
-                displayWeather(data, city);
-            });
-        } else {
-            alert('Error: Weather Not Found');
-        }
-    })
-    .catch(function(error) {
-        // Notice this `.catch()` getting chained onto the end of the `.then()` method
-        // .catch() to handle network errors
-        alert("Unable to connect to OpenWeather");
-    });
-};
+//     // make a request to the url
+//     fetch(apiUrl)
+//     .then(function(response) {
+//         // request was successful
+//         if (response.ok) {
+//             response.json().then(function(data) {
+//                 displayWeather(data, city);
+//             });
+//         } else {
+//             alert('Error: Weather Not Found');
+//         }
+//     })
+//     .catch(function(error) {
+//         // Notice this `.catch()` getting chained onto the end of the `.then()` method
+//         // .catch() to handle network errors
+//         alert("Unable to connect to OpenWeather");
+//     });
+// };
 
-var displayWeather = function(weather, searchTerm) {
-}
+// var displayWeather = function(weather, searchTerm) {
+// }
 
 formBtnEl.addEventListener("submit", formSubmitHandler);
 
