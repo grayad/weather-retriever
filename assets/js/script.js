@@ -1,6 +1,6 @@
+// global variables
 var formEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#cityInput");
-console.log(cityInputEl);
 var formBtnEl = document.getElementById("formBtn");
 
 
@@ -8,12 +8,12 @@ var formSubmitHandler = function(event) {
     event.preventDefault();
 
     // get value from input element and trim any leading/trailing spaces
-    var cityName = cityInputEl.value.trim();
+    var cityName = cityInputEl.value.trim().toLowerCase();
 
     // check if there is a value in the cityName variable before requesting data
     if (cityName) {
         // pass city to the retrieveWeather function as an argument to request data
-        retrieveWeather(cityName);
+        retrieveCoordinates(cityName);
         // clear the form
         cityInputEl.value = "";
     } else {
@@ -22,7 +22,7 @@ var formSubmitHandler = function(event) {
     }
 };
 
-var retrieveWeather = function(city) {
+var retrieveCoordinates = function(city) {
     console.log(city);
     var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=aced3c832ed11bbdeba8eca54b432a36";
 
@@ -32,11 +32,14 @@ var retrieveWeather = function(city) {
         // request was successful
         if (response.ok) {
             response.json().then(function(data) {
-                // displayWeather(data, city);
                 console.log(data);
+                var lat = data[0].lat;
+                var lon = data[0].lon;
+                console.log(lat,lon);
+                displayWeather(lat, lon);
             });
         } else {
-            alert('Error: Weather Not Found');
+            alert('Error: Unable to connect to OpenWeatherMap.org');
         }
     })
     .catch(function(error) {
@@ -46,7 +49,27 @@ var retrieveWeather = function(city) {
     });
 };
 
-// var displayWeather = function(weather, searchTerm) {
-// }
+var displayWeather = function(lat,lon) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&exclude=hourly,daily&appid=aced3c832ed11bbdeba8eca54b432a36";
+
+
+    fetch(apiUrl)
+    .then(function(response) {
+        // request was successful
+        if (response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+            });
+        } else {
+            alert('Error: Unable to connect to OpenWeatherMap.org');
+        }
+    })
+    .catch(function(error) {
+        // Notice this `.catch()` getting chained onto the end of the `.then()` method
+        // .catch() to handle network errors
+        alert("Unable to connect to OpenWeather");
+    });
+};
+
 
 formEl.addEventListener("submit", formSubmitHandler);
