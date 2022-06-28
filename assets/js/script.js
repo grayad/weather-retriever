@@ -1,7 +1,9 @@
 // global variables
+var apiKey = "aced3c832ed11bbdeba8eca54b432a36";
 var formEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#cityInput");
 var formBtnEl = document.getElementById("formBtn");
+var cityInfoEl = document.querySelector("#city-info-container");
 
 
 var formSubmitHandler = function(event) {
@@ -24,7 +26,7 @@ var formSubmitHandler = function(event) {
 
 var retrieveCoordinates = function(city) {
     console.log(city);
-    var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=aced3c832ed11bbdeba8eca54b432a36";
+    var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=" +apiKey;
 
     // make a request to the url
     fetch(apiUrl)
@@ -32,11 +34,9 @@ var retrieveCoordinates = function(city) {
         // request was successful
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data);
                 var lat = data[0].lat;
                 var lon = data[0].lon;
-                console.log(lat,lon);
-                displayWeather(lat, lon);
+                fetchWeather(lat, lon);
             });
         } else {
             alert('Error: Unable to connect to OpenWeatherMap.org');
@@ -49,16 +49,15 @@ var retrieveCoordinates = function(city) {
     });
 };
 
-var displayWeather = function(lat,lon) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&exclude=hourly,daily&appid=aced3c832ed11bbdeba8eca54b432a36";
-
+var fetchWeather = function(lat,lon) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&exclude=hourly,daily&appid="+apiKey;
 
     fetch(apiUrl)
     .then(function(response) {
         // request was successful
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data);
+                displayWeather(data);
             });
         } else {
             alert('Error: Unable to connect to OpenWeatherMap.org');
@@ -69,7 +68,29 @@ var displayWeather = function(lat,lon) {
         // .catch() to handle network errors
         alert("Unable to connect to OpenWeather");
     });
+
+
+
 };
+
+var displayWeather = data => {
+    var temp = document.createElement('p');
+    temp.textContent = "Temp: "+ Math.ceil(data.current.temp) +"°F";
+    cityInfoEl.appendChild(temp);
+
+    var wind = document.createElement('p');
+    wind.textContent = "Wind: "+ Math.ceil(data.current.wind_speed)+" MPH";
+    cityInfoEl.appendChild(wind);
+
+    var humidity = document.createElement('p');
+    humidity.textContent = "Humidity: "+ Math.ceil(data.current.humidity)+"%";
+    cityInfoEl.appendChild(humidity);
+
+    var uvi = document.createElement('p');
+    uvi.textContent = "UV Index: "+ data.current.uvi;
+    cityInfoEl.appendChild(uvi);
+
+}
 
 
 formEl.addEventListener("submit", formSubmitHandler);
