@@ -33,14 +33,24 @@ var retrieveCoordinates = function(city) {
         // request was successful
         if (response.ok) {
             response.json().then(function(data) {
+                // get lat, lon, and city data
                 var lat = data[0].lat;
                 var lon = data[0].lon;
                 var city = data[0].name;
 
+                // create html for date
+                var dateEl = document.createElement('span');
+                dateEl.textContent = " (" + moment().format('L') + ")";
+                console.log(moment().format('L'));
+
+                // create html for city title
                 var cityTitle = document.createElement('h3');
                 cityTitle.textContent = city;
                 cityInfoEl.appendChild(cityTitle);
+                cityTitle.appendChild(dateEl);
 
+
+                // send coordinates to fetchWeather function
                 fetchWeather(lat, lon);
             });
         } else {
@@ -62,6 +72,8 @@ var fetchWeather = function(lat,lon) {
         // request was successful
         if (response.ok) {
             response.json().then(function(data) {
+                console.log(data);
+                // send city weather info to displayWeather function to create HTML
                 displayWeather(data);
             });
         } else {
@@ -73,30 +85,30 @@ var fetchWeather = function(lat,lon) {
         // .catch() to handle network errors
         alert("Unable to connect to OpenWeather");
     });
-
-
-
 };
 
 var displayWeather = data => {
+    // temp HTML
     var temp = document.createElement('p');
     temp.textContent = "Temp: "+ Math.ceil(data.current.temp) +"°F";
     cityInfoEl.appendChild(temp);
 
+    // wind HTML
     var wind = document.createElement('p');
     wind.textContent = "Wind: "+ Math.ceil(data.current.wind_speed)+" MPH";
     cityInfoEl.appendChild(wind);
 
+    // humidity HTML
     var humidity = document.createElement('p');
     humidity.textContent = "Humidity: "+ Math.ceil(data.current.humidity)+"%";
     cityInfoEl.appendChild(humidity);
 
+    // UV Index HTML
     var uvi = data.current.uvi;
     var uviEl = document.createElement('p');
     var uviSpan = document.createElement('span');
-    var uviSpanText = uviSpan.textContent = uvi;
-
-
+    uviSpan.textContent = uvi;
+    // color code UVI based on scale
     if(uvi<=2) {
         uviSpan.className =("low-uvi")
     } else if(uvi>2 && uvi<=7) {
@@ -106,6 +118,7 @@ var displayWeather = data => {
     } else {
         uviSpan.className =("extreme-uvi")
     }
+    // append uvi elements to the current weather section
     uviEl.textContent = "UV Index: "
     cityInfoEl.appendChild(uviEl);
     uviEl.appendChild(uviSpan);
