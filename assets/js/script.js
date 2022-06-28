@@ -25,7 +25,6 @@ var formSubmitHandler = function(event) {
 };
 
 var retrieveCoordinates = function(city) {
-    console.log(city);
     var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=" +apiKey;
 
     // make a request to the url
@@ -36,6 +35,12 @@ var retrieveCoordinates = function(city) {
             response.json().then(function(data) {
                 var lat = data[0].lat;
                 var lon = data[0].lon;
+                var city = data[0].name;
+
+                var cityTitle = document.createElement('h3');
+                cityTitle.textContent = city;
+                cityInfoEl.appendChild(cityTitle);
+
                 fetchWeather(lat, lon);
             });
         } else {
@@ -89,7 +94,6 @@ var displayWeather = data => {
     var uvi = document.createElement('p');
     uvi.textContent = "UV Index: "+ data.current.uvi;
     cityInfoEl.appendChild(uvi);
-
 }
 
 
