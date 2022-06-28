@@ -18,6 +18,8 @@ var formSubmitHandler = function(event) {
         retrieveCoordinates(cityName);
         // clear the form
         cityInputEl.value = "";
+        // delete any previous html
+        cityInfoEl.innerHTML = "";
     } else {
         // if the input field is blank, alert
         alert("Please enter a city!");
