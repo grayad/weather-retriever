@@ -20,7 +20,7 @@ var formSubmitHandler = function(event) {
         cityInputEl.value = "";
         // delete any previous html
         cityInfoEl.innerHTML = "";
-        // forecastEl.innerHTML = "";
+        forecastEl.innerHTML = "";
     } else {
         // if the input field is blank, alert
         alert("Please enter a city!");
@@ -166,15 +166,58 @@ var displayForecast = data => {
         div.className = "forecast";
 
         // get data
-        var date = moment().add(1, 'days').format('L');
         var temp = data.daily[i].temp.day;
         var wind = data.daily[i].wind_speed;
         var humidity = data.daily[i].humidity;
 
+        if(i===1) {
+            var date = moment().add(1, 'days').format('L')
+        } else if (i===2){
+            var date = moment().add(2, 'days').format('L')
+        } else if (i===3){
+            var date = moment().add(3, 'days').format('L')
+        } else if (i===4){
+            var date = moment().add(4, 'days').format('L')
+        } else if (i===5){
+            var date = moment().add(5, 'days').format('L')
+        };
+
         // create elements
         var dateEl = document.createElement("h4");
-        dateEl.textContent=date;
+        dateEl.textContent = date;
         div.appendChild(dateEl);
+
+        // set condition and icon
+        var condition = data.daily[i].weather[0].main;
+        if(condition === "Clouds") {
+            var icon = document.createElement('i');
+            icon.className = ("fa fa-solid fa-cloud");
+            div.appendChild(icon);
+        } else if (condition === "Thunderstorm") {
+            var icon = document.createElement('i');
+            icon.className = ("fa fa-solid fa-cloud-bolt");
+            div.appendChild(icon);
+        } else if (condition === "Drizzle") {
+            var icon = document.createElement('i');
+            icon.className = ("fa fa-solid fa-cloud-rain");
+            div.appendChild(icon);
+        }  else if (condition === "Rain") {
+            var icon = document.createElement('i');
+            icon.className = ("fa fa-solid fa-cloud-showers-heavy");
+            div.appendChild(icon);
+        }  else if (condition === "Snow") {
+            var icon = document.createElement('i');
+            icon.className = ("fa fa-solid fa-snowflake");
+            div.appendChild(icon);
+        }  else if (condition === "Clear") {
+            var icon = document.createElement('i');
+            icon.className = ("fa fa-solid fa-sun");
+            div.appendChild(icon);
+        } else {
+            var icon = document.createElement('i');
+            icon.className = ("fa fa-solid fa-smog");
+            div.appendChild(icon);
+        }
 
         var tempEl = document.createElement("p");
         tempEl.textContent="Temp: "+ Math.ceil(temp) +"°F";
