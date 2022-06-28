@@ -4,7 +4,7 @@ var formEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#cityInput");
 var formBtnEl = document.getElementById("formBtn");
 var cityInfoEl = document.querySelector("#city-info-container");
-var forecastEl = document.querySelector("#forecast-container");
+var forecastEl = document.querySelector("#forecast-section");
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -20,7 +20,7 @@ var formSubmitHandler = function(event) {
         cityInputEl.value = "";
         // delete any previous html
         cityInfoEl.innerHTML = "";
-        forecastEl.innerHTML = "";
+        // forecastEl.innerHTML = "";
     } else {
         // if the input field is blank, alert
         alert("Please enter a city!");
@@ -44,7 +44,6 @@ var retrieveCoordinates = function(city) {
                 // create html for date
                 var dateEl = document.createElement('span');
                 dateEl.textContent = " (" + moment().format('L') + ")";
-                console.log(moment().format('L'));
 
                 // create html for city title
                 var cityTitle = document.createElement('h3');
@@ -55,6 +54,7 @@ var retrieveCoordinates = function(city) {
 
                 // send coordinates to fetchWeather function
                 fetchWeather(lat, lon);
+                // displayForecast(lat,lon);
             });
         } else {
             alert('Error: Unable to connect to OpenWeatherMap.org');
@@ -68,7 +68,7 @@ var retrieveCoordinates = function(city) {
 };
 
 var fetchWeather = function(lat,lon) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&exclude=hourly,daily&appid="+apiKey;
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&units=imperial&exclude=hourly,minutely&appid="+apiKey;
 
     fetch(apiUrl)
     .then(function(response) {
@@ -76,8 +76,9 @@ var fetchWeather = function(lat,lon) {
         if (response.ok) {
             response.json().then(function(data) {
                 console.log(data);
-                // send city weather info to displayWeather function to create HTML
+                // send city weather info to functions to create HTML
                 displayWeather(data);
+                displayForecast(data);
             });
         } else {
             alert('Error: Unable to connect to OpenWeatherMap.org');
@@ -155,6 +156,40 @@ var displayWeather = data => {
     uviEl.textContent = "UV Index: "
     cityInfoEl.appendChild(uviEl);
     uviEl.appendChild(uviSpan);
+};
+
+var displayForecast = data => {
+    console.log(data.daily);
+
+    for(var i =1; i < data.daily.length-2; i++) {
+        var div = document.createElement("div");
+        div.className = "forecast";
+
+        // get data
+        var date = moment().add(1, 'days').format('L');
+        var temp = data.daily[i].temp.day;
+        var wind = data.daily[i].wind_speed;
+        var humidity = data.daily[i].humidity;
+
+        // create elements
+        var dateEl = document.createElement("h4");
+        dateEl.textContent=date;
+        div.appendChild(dateEl);
+
+        var tempEl = document.createElement("p");
+        tempEl.textContent="Temp: "+ Math.ceil(temp) +"°F";
+        div.appendChild(tempEl);
+
+        var windEl = document.createElement("p");
+        windEl.textContent="Wind: "+ Math.ceil(wind)+" MPH";
+        div.appendChild(windEl);
+
+        var humidityEl = document.createElement("p");
+        humidityEl.textContent="Humidity: "+ Math.ceil(humidity)+"%";
+        div.appendChild(humidityEl);
+
+        forecastEl.appendChild(div);
+    }
 };
 
 
