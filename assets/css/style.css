@@ -27,3 +27,31 @@ header {
     color:white;
     padding: 5px;
 }
+
+.low-uvi {
+    background-color: green;
+    color: white;
+    border-radius: 15px;
+    padding: 1px 5px;
+}
+
+.moderate-uvi {
+    background-color: orange;
+    color: white;
+    border-radius: 15px;
+    padding: 1px 5px;
+}
+
+.high-uvi {
+    background-color: red;
+    color: white;
+    border-radius: 15px;
+    padding: 1px 5px;
+}
+
+.extreme-uvi {
+    background-color: purple;
+    color: white;
+    border-radius: 15px;
+    padding: 1px 5px;
+}

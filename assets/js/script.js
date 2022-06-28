@@ -91,10 +91,25 @@ var displayWeather = data => {
     humidity.textContent = "Humidity: "+ Math.ceil(data.current.humidity)+"%";
     cityInfoEl.appendChild(humidity);
 
-    var uvi = document.createElement('p');
-    uvi.textContent = "UV Index: "+ data.current.uvi;
-    cityInfoEl.appendChild(uvi);
-}
+    var uvi = data.current.uvi;
+    var uviEl = document.createElement('p');
+    var uviSpan = document.createElement('span');
+    var uviSpanText = uviSpan.textContent = uvi;
+
+
+    if(uvi<=2) {
+        uviSpan.className =("low-uvi")
+    } else if(uvi>2 && uvi<=7) {
+        uviSpan.className =("moderate-uvi")
+    } else if(uvi>7 && uvi<11) {
+        uviSpan.className =("high-uvi")
+    } else {
+        uviSpan.className =("extreme-uvi")
+    }
+    uviEl.textContent = "UV Index: "
+    cityInfoEl.appendChild(uviEl);
+    uviEl.appendChild(uviSpan);
+};
 
 
 formEl.addEventListener("submit", formSubmitHandler);
