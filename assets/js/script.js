@@ -88,6 +88,36 @@ var fetchWeather = function(lat,lon) {
 };
 
 var displayWeather = data => {
+    var condition = data.current.weather[0].main;
+    if(condition === "Clouds") {
+        var icon = document.createElement('i');
+        icon.className = ("fa fa-solid fa-cloud");
+        cityInfoEl.appendChild(icon);
+    } else if (condition === "Thunderstorm") {
+        var icon = document.createElement('i');
+        icon.className = ("fa fa-solid fa-cloud-bolt");
+        cityInfoEl.appendChild(icon);
+    } else if (condition === "Drizzle") {
+        var icon = document.createElement('i');
+        icon.className = ("fa fa-solid fa-cloud-rain");
+        cityInfoEl.appendChild(icon);
+    }  else if (condition === "Rain") {
+        var icon = document.createElement('i');
+        icon.className = ("fa fa-solid fa-cloud-showers-heavy");
+        cityInfoEl.appendChild(icon);
+    }  else if (condition === "Snow") {
+        var icon = document.createElement('i');
+        icon.className = ("fa fa-solid fa-snowflake");
+        cityInfoEl.appendChild(icon);
+    }  else if (condition === "Clear") {
+        var icon = document.createElement('i');
+        icon.className = ("fa fa-solid fa-sun");
+        cityInfoEl.appendChild(icon);
+    } else {
+        var icon = document.createElement('i');
+        icon.className = ("fa fa-solid fa-smog");
+        cityInfoEl.appendChild(icon);
+    }
     // temp HTML
     var temp = document.createElement('p');
     temp.textContent = "Temp: "+ Math.ceil(data.current.temp) +"°F";
