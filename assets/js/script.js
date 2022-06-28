@@ -4,7 +4,7 @@ var formEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#cityInput");
 var formBtnEl = document.getElementById("formBtn");
 var cityInfoEl = document.querySelector("#city-info-container");
-
+var forecastEl = document.querySelector("#forecast-container");
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -20,6 +20,7 @@ var formSubmitHandler = function(event) {
         cityInputEl.value = "";
         // delete any previous html
         cityInfoEl.innerHTML = "";
+        forecastEl.innerHTML = "";
     } else {
         // if the input field is blank, alert
         alert("Please enter a city!");
