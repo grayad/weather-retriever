@@ -22,9 +22,10 @@ A website to search for a city's weather and receive information including tempe
 - THEN I am again presented with current and future conditions for that city
 
 ## Built with:
-- html
-- css
-- javascript
+- HTML
+- JavaScript
+- CSS
+- OpenWeather API
 
 ## Screenshot
 ![_C__Users_alexu_repos_sandbox_6-Mod-Challenge_weather-retriever_index html](https://user-images.githubusercontent.com/102432930/176485321-95df34ff-5116-4b82-a92a-617c6465792c.png)
