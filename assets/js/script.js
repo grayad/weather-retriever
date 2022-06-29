@@ -6,6 +6,7 @@ var formBtnEl = document.getElementById("formBtn");
 var cityInfoEl = document.querySelector("#city-info-container");
 var forecastEl = document.querySelector("#forecast-section");
 var historyEl = document.querySelector("#history-container")
+var cities = [];
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -15,7 +16,10 @@ var formSubmitHandler = function(event) {
 
     // check if there is a value in the cityName variable before requesting data
     if (cityName) {
-        saveSearch(cityName);
+        cities.push(cityName);
+
+        saveSearch();
+        loadSearch();
 
         // pass city to function as an argument to request coordinates
         retrieveCoordinates(cityName);
@@ -32,16 +36,38 @@ var formSubmitHandler = function(event) {
 
 var saveSearch = cityName => {
     // set input to local storage and create button
-    localStorage.setItem("city", cityName);
-    var cityBtn = document.createElement("btn");
-    cityBtn.className = "btn bg-secondary border-0 m-1 w-100 text-center text-white";
-    cityBtn.textContent = cityName;
-    historyEl.appendChild(cityBtn);
-    
-    // TODO create load function similar to another on github
-    // on click get input and rerequest data
-    cityBtn.addEventListener("click", retrieveCoordinates(cityBtn.textContent));
+    localStorage.setItem("cities", JSON.stringify(cities));
 };
+
+var loadSearch = function() {
+    // clear previous button history
+    historyEl.textContent = "";
+
+    var cities = JSON.parse(localStorage.getItem("cities"));
+    console.log(cities);
+    // create html for each item in localStorage
+    for(var i=0; i<cities.length; i++){
+        var cityBtn = document.createElement("btn");
+        cityBtn.className = "btn bg-secondary border-0 m-1 w-100 text-center text-white";
+        cityBtn.textContent = cities[i];
+        historyEl.appendChild(cityBtn);
+    }
+}
+
+window.onload = function() {
+    loadSearch();
+};
+
+historyEl.addEventListener("click" , function(event) {
+    var cityName = event.target.textContent;
+
+    // reset containers to be blank to remove previous html
+        cityInputEl.value = "";
+        cityInfoEl.innerHTML = "";
+        forecastEl.innerHTML = "";
+
+        retrieveCoordinates(cityName);
+});
 
 var retrieveCoordinates = function(city) {
     var apiUrl="https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=" +apiKey;
