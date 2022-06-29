@@ -55,3 +55,7 @@ header {
     border-radius: 15px;
     padding: 1px 5px;
 }
+
+.btn {
+    width: 100%;
+}

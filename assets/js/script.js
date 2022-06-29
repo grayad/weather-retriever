@@ -5,6 +5,7 @@ var cityInputEl = document.querySelector("#cityInput");
 var formBtnEl = document.getElementById("formBtn");
 var cityInfoEl = document.querySelector("#city-info-container");
 var forecastEl = document.querySelector("#forecast-section");
+var historyEl = document.querySelector("#history-container")
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -14,7 +15,9 @@ var formSubmitHandler = function(event) {
 
     // check if there is a value in the cityName variable before requesting data
     if (cityName) {
-        // pass city to the retrieveWeather function as an argument to request data
+        saveSearch(cityName);
+
+        // pass city to function as an argument to request coordinates
         retrieveCoordinates(cityName);
         // clear the form
         cityInputEl.value = "";
@@ -25,6 +28,19 @@ var formSubmitHandler = function(event) {
         // if the input field is blank, alert
         alert("Please enter a city!");
     }
+};
+
+var saveSearch = cityName => {
+    // set input to local storage and create button
+    localStorage.setItem("city", cityName);
+    var cityBtn = document.createElement("btn");
+    cityBtn.className = "btn bg-secondary border-0 m-1 w-100 text-center text-white";
+    cityBtn.textContent = cityName;
+    historyEl.appendChild(cityBtn);
+    
+    // TODO create load function similar to another on github
+    // on click get input and rerequest data
+    cityBtn.addEventListener("click", retrieveCoordinates(cityBtn.textContent));
 };
 
 var retrieveCoordinates = function(city) {
